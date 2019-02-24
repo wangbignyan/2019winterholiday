@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+class tree
+{
+public:
+    char data;
+    tree *lchild ;
+    tree *rchild ;
+    void creat(tree* &t)
+    {
+        char s;
+        cin>>s;
+        if(s=='#')
+        {
+            t=NULL;
+        }
+        else
+        {
+            t=new tree;
+            t->data=s;
+            creat(t->lchild);
+            creat(t->rchild);
+        }
+    }
+    void preor(tree *t)
+    {
+        if(t)
+        {
+            cout<<t->data<<" ";
+            preor(t->lchild);
+            preor(t->rchild);
+        }
+    }
+    void inor(tree *t)
+    {
+        if(t)
+        {
+            inor(t->lchild);
+            cout<<t->data<<" ";
+            inor(t->rchild);
+        }
+    }
+    void postor(tree *t)
+    {
+        if(t)
+        {
+            postor(t->lchild);
+            postor(t->rchild);
+            cout<<t->data<<" ";
+        }
+    }
+    void Insert(tree* &t,int a)
+    {
+        if(t)
+        {
+            if(t->data<a)
+                Insert(t->rchild,a);
+            else
+                Insert(t->lchild,a);
+        }
+        else
+        {
+            t=new tree;
+            t->data=a;
+            t->lchild=NULL;
+            t->rchild=NULL;
+        }
+    }
+};
+int main()
+{
+    tree b;
+    tree *t;
+    char a;
+    b.creat(t);
+    cout<<"二叉树创建完成！"<<endl;
+    cout<<"前序遍历为:"<<endl;
+    b.preor(t);
+    cout<<endl;
+    cout<<"中序遍历为:"<<endl;
+    b.inor(t);
+    cout<<endl;
+    cout<<"后序遍历为:"<<endl;
+    b.postor(t);
+    cout<<endl;
+    cout<<"输入想插入的数:";
+    cin>>a;
+    b.Insert(t,a);
+    cout<<"插入后前序遍历为:"<<endl;
+    b.preor(t);
+}
